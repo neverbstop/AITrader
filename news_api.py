@@ -2,11 +2,11 @@
 import requests
 import pandas as pd
 from datetime import datetime, timedelta
+import config
 
 # ----------------------------------------
 # CONFIG
 # ----------------------------------------
-API_KEY = "YOUR_NEWSAPI_KEY"   # replace with your NewsAPI key
 COMPANY = "Apple"              # you can change this dynamically later
 FROM_DAYS = 7                  # number of days back to fetch news
 OUTPUT_FILE = f"data/news_{COMPANY.lower()}.csv"
@@ -14,7 +14,7 @@ OUTPUT_FILE = f"data/news_{COMPANY.lower()}.csv"
 # ----------------------------------------
 # FETCH NEWS
 # ----------------------------------------
-def fetch_news(company=COMPANY, days=FROM_DAYS):
+def fetch_news(api_key, company=COMPANY, days=FROM_DAYS):
     url = "https://newsapi.org/v2/everything"
     from_date = (datetime.now() - timedelta(days=days)).strftime("%Y-%m-%d")
     to_date = datetime.now().strftime("%Y-%m-%d")
@@ -25,7 +25,7 @@ def fetch_news(company=COMPANY, days=FROM_DAYS):
         "to": to_date,
         "sortBy": "publishedAt",
         "language": "en",
-        "apiKey": API_KEY
+        "apiKey": api_key
     }
 
     response = requests.get(url, params=params)
@@ -68,9 +68,9 @@ def save_news(df, filename=OUTPUT_FILE):
         pass
 
     df.to_csv(filename, index=False)
-    print(f"✅ News saved to {filename}")
+    print(f"News saved to {filename}")
 
 if __name__ == "__main__":
-    df = fetch_news()
+    df = fetch_news(api_key=config.NEWS_API_KEY)
     save_news(df)
     print(df.head())

@@ -6,7 +6,7 @@ from torch.utils.data import DataLoader, Dataset
 from transformers import AutoTokenizer # We'll use a pre-trained tokenizer for simplicity and best practices
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report
-from transformer_model import SentimentTransformer # Import our custom model
+from models.transformer_model import SentimentTransformer # Import our custom model
 import os
 
 # Define hyperparameters
@@ -176,8 +176,8 @@ def train_model():
     tokenizer_path = os.path.join(model_dir, "tokenizer")
     tokenizer.save_pretrained(tokenizer_path)
 
-    print(f"✅ Model saved to {model_path}")
-    print(f"✅ Tokenizer saved to {tokenizer_path}")
+    print(f"Model saved to {model_path}")
+    print(f"Tokenizer saved to {tokenizer_path}")
 
 if __name__ == "__main__":
     train_model()

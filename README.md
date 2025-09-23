@@ -40,9 +40,8 @@ source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
 ### 3. Install Dependencies
 
 Install the required Python packages. You should create a `requirements.txt` file for this.
-
 ```bash
-pip install pandas yfinance dash plotly python-dotenv
+pip install pandas yfinance dash plotly python-dotenv polars requests torch transformers textblob numpy
 # Or if a requirements.txt file is available:
 # pip install -r requirements.txt
 ```

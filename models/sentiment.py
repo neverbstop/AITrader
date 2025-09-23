@@ -34,7 +34,7 @@ def analyze_sentiment(input_csv="news_data.csv", output_csv="news_with_sentiment
 
     # Step 5: Save with sentiments
     df.to_csv(output_csv, index=False)
-    print(f"✅ Sentiment analysis completed. Results saved to {output_csv}")
+    print(f"Sentiment analysis completed. Results saved to {output_csv}")
 
     # Step 6: Convert publishedAt to datetime
     df["publishedAt"] = pd.to_datetime(df["publishedAt"], errors="coerce")
@@ -48,7 +48,7 @@ def analyze_sentiment(input_csv="news_data.csv", output_csv="news_with_sentiment
         daily_sentiment,
         x="date",
         y="compound",
-        title="📈 Daily Average News Sentiment",
+        title="Daily Average News Sentiment",
         labels={"date": "Date", "compound": "Average Sentiment Score"},
         markers=True
     )
@@ -56,7 +56,7 @@ def analyze_sentiment(input_csv="news_data.csv", output_csv="news_with_sentiment
 
     # Save interactive dashboard as HTML
     fig.write_html(plot_html)
-    print(f"📊 Sentiment trend chart saved as {plot_html}")
+    print(f"Sentiment trend chart saved as {plot_html}")
 
     return df, daily_sentiment
 

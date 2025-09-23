@@ -1,6 +1,6 @@
 import pandas as pd
 from config import CAPITAL, BROKERAGE_PERCENT, TAX_PERCENT, THRESHOLD_PROFIT_PERCENT, AUTONOMOUS_BUDGET, AUTONOMOUS_ENABLED, TICKER
-from risk_management import apply_fees
+from core.risk_management import apply_fees
 
 class AutonomousAgent:
     def __init__(self, ticker):

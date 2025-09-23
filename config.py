@@ -26,6 +26,11 @@ CAPITAL = 10000.0  # Initial portfolio capital
 CHECK_INTERVAL_SECONDS = 60  # How often the main loop runs
 
 # ====================
+# FILE PATHS
+# ====================
+STOCK_FILE = f"data/{TICKER}.csv"
+
+# ====================
 # AGENT CONFIGURATIONS
 # ====================
 
