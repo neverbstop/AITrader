@@ -5,12 +5,33 @@ from datetime import datetime
 from pathlib import Path
 import polars as pl
 import logging
+import config
+from core.autonomous_agent import EnhancedAutonomousAgent
+
+agent = EnhancedAutonomousAgent(ticker=config.TICKER)
 
 # Import your existing pipelines
 from pipelines.data_pipeline import DataPipeline
 from pipelines.news_pipeline import NewsPipeline
 from pipelines.sentiment_pipeline import SentimentPipeline
 from dashboard.dashboard import open_dashboard
+from pipelines.data_pipeline import EnhancedDataPipeline
+from pipelines.news_pipeline import EnhancedNewsPipeline
+from pipelines.sentiment_pipeline import EnhancedSentimentPipeline
+
+# Instantiate pipelines
+data_pipeline = EnhancedDataPipeline(stockfile="data/data.csv", ticker=config.TICKER)
+news_pipeline = EnhancedNewsPipeline(api_key=config.NEWSAPI_KEY)
+sentiment_pipeline = EnhancedSentimentPipeline()
+
+# Get current price (from data pipeline or external source)
+current_price = data_pipeline.get_latest_price(config.TICKER)
+# Get quant signal (from technical analysis)
+quant_signal = data_pipeline.generate_quant_signal(config.TICKER)
+# Get latest news summary
+news_signal = news_pipeline.latest_signal(config.TICKER)
+# Get sentiment score
+sentiment_score = sentiment_pipeline.latest_score(config.TICKER)
 
 # NEW: Import XAI components (we'll need to create these)
 from xai.explainer import XAIExplainer
@@ -20,6 +41,23 @@ from utils.data_validator import DataValidator
 from utils.logger_setup import setup_logging
 
 import config
+# After obtaining signal values from other pipelines/modules
+# Assume: news_signal, quant_signal, sentiment_score, current_price have been calculated here
+
+from core.autonomous_agent import EnhancedAutonomousAgent
+
+agent = EnhancedAutonomousAgent(ticker=TICKER)
+agent.enable()
+
+# Example loop for simulation or live data:
+while True:
+    # update signal values as needed (e.g., fetch next batch of data)
+    # call agent logic on every tick/data refresh
+    agent.run_if_enabled(news_signal, quant_signal, sentiment_score, current_price)
+
+    # Optional: break condition or sleep
+    break
+agent.run_if_enabled(news_signal, quant_signal, sentiment_score, current_price)
 
 # Configure Polars
 pl.Config.set_tbl_formatting("ASCII_FULL")
